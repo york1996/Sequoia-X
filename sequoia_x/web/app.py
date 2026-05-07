@@ -44,10 +44,10 @@ def create_app() -> FastAPI:
         with sqlite3.connect(engine.db_path) as conn:
             conn.execute("PRAGMA journal_mode=WAL")
 
-        # 日志环形缓冲区
+        # 日志环形缓冲区 — 挂到 sequoia_x logger 上（其 propagate=False，root logger 收不到）
         handler = RingBufferHandler(maxlen=500)
         handler.setFormatter(logging.Formatter("[%(asctime)s] %(levelname)s - %(message)s"))
-        logging.getLogger().addHandler(handler)
+        logging.getLogger("sequoia_x").addHandler(handler)
         app.state.log_handler = handler
 
     return app
