@@ -17,7 +17,7 @@ ENV/
 .kiro
 
 # 数据库文件
-data/
+/data/
 *.db
 *.db-shm
 *.db-wal
